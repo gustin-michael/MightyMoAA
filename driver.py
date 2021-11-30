@@ -1,17 +1,17 @@
 from calculator import calculator_main
 
 aggressor = {
-    "infantry": 3,
-    "artillery": 3,
-    "tank": 0,
-    "fighter": 0,
-    "bomber": 2,
+    "infantry": 2,
+    "artillery": 2,
+    "tank": 2,
+    "fighter": 2,
+    "bomber": 0,
 }
 
 defender = {
-    "infantry": 5,
+    "infantry": 20,
     "artillery": 0,
-    "tank": 1,
+    "tank": 0,
     "fighter": 0,
     "bomber": 0,
 }
