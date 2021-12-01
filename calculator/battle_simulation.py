@@ -1,13 +1,59 @@
 import random
 
-def take_unit_count(offence, defence):
-  print(offence)
-  #print(evaluate_ipc(offence))
-  print(defence)
-  #print(evaluate_ipc(defence))
+class battle_simulation:
 
-  combat_round(offence,defence)
+  def __init__(self,offence,defence,rounds=100):
+      self.offence = offence
+      self.defence = defence
+      self.rounds = rounds
 
+      self.set_class_vars(self)
+
+      self.initial_offence_attack = evaluate_ipc(self.offence)
+      self.initial_defence_attack = evaluate_ipc(self.defence)
+
+      battle_main(self.offence,self.defence,self.rounds)
+  
+  @classmethod
+  def set_class_vars(cls,self):
+    cls.offence_hand = self.offence
+    cls.defence_hand = self.defence
+
+
+def battle_main(offence, defence, rounds, num_sims=100):
+  offence_wins = 0
+  defence_wins = 0
+
+  print("In Offence: " + str(offence))
+  print("In Defence: " + str(defence))
+
+  for i in range(1,num_sims + 1):
+    print()
+    print("Combat " + str(i))
+    offence_instance = offence
+    defence_instance = defence
+    result = run_battle(offence_instance, defence_instance, rounds)
+    if result == 1:
+      defence_wins += 1
+    elif result == 0:
+      offence_wins += 1
+  
+  print("Offence wins " + str((offence_wins/num_sims)*100) + "% of the time")
+  print("Defence wins " + str((defence_wins/num_sims)*100) + "% of the time")
+
+def run_battle(attacker, defender, rounds):
+  round_counter = 0
+  while(round_counter < rounds and attacker is not None and defender is not None):
+    round_counter += 1
+    attacker,defender = combat_round(attacker,defender)
+    print("Round: " + str(round_counter))
+    print("Offence: " + str(attacker))
+    print("Defence: " + str(defender))
+  
+  if attacker is None:
+    return 1
+  elif defender is None:
+    return 0
 
 def combat_round(offence, defence):
   atk_hits = evaluate_hits(offence)
@@ -15,10 +61,8 @@ def combat_round(offence, defence):
   print("attacker hits: " + str(atk_hits))
   print("defender hits: " + str(def_hits))
 
-  assign_hits(offence,def_hits)
-  assign_hits(defence,atk_hits)
-  print(offence)
-  print(defence)
+  offence = assign_hits(offence,def_hits)
+  defence = assign_hits(defence,atk_hits)
   return [offence,defence]
 
 def evaluate_hits(hand, defence_flag=False):
@@ -65,7 +109,6 @@ def assign_hits(hand, hits, def_profile=["infantry","artillery","tank","fighter"
         hand[unit_type] = hand[unit_type] - hits
         return hand
   
-
 def evaluate_ipc(hand):
   ipc_value = 0
   for unit_type in hand.keys():

@@ -1,10 +1,10 @@
-from calculator import calculator_main
+from calculator import battle_simulation as sim
 
 aggressor = {
-    "infantry": 2,
-    "artillery": 2,
-    "tank": 2,
-    "fighter": 2,
+    "infantry": 30,
+    "artillery": 0,
+    "tank": 0,
+    "fighter": 0,
     "bomber": 0,
 }
 
@@ -16,4 +16,4 @@ defender = {
     "bomber": 0,
 }
 
-calculator_main.take_unit_count(aggressor, defender)
+sim1 = sim.battle_simulation(aggressor, defender)
