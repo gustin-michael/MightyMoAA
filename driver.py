@@ -1,7 +1,7 @@
 from calculator import battle_simulation as sim
 
 aggressor = {
-    "infantry": 5,
+    "infantry": 15,
     "artillery": 0,
     "tank": 0,
     "fighter": 0,
@@ -16,6 +16,4 @@ defender = {
     "bomber": 0,
 }
 
-#sim1 = sim.battle_simulation(aggressor, defender)
-#print(id(aggressor))
-sim.battle_main(aggressor,defender)
+sim.combat_main(aggressor,defender)
