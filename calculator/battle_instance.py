@@ -9,6 +9,10 @@ class battle_instance:
         self.dfn = defence
         self.rnds = rounds
         self.winner = None
+        self.winner_hand = None
+
+        self.initial_ipc_off = evaluate_ipc(self.off)
+        self.initial_ipc_def = evaluate_ipc(self.dfn)
 
         # prep battle
         self.battle_log = []
@@ -16,6 +20,8 @@ class battle_instance:
 
         # execute battle
         self.run_battle()
+
+        #if(self.winner == "A")
 
     def build_hands(self):
         offn = land_hand(self.off["infantry"],
